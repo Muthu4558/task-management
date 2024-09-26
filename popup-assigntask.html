@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,15 +10,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.0/font/bootstrap-icons.min.css"
+        rel="stylesheet">
 
     <!-- jQuery and Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Bootstrap Datepicker CSS & JS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
     <style>
         /* Styling for modal animation */
@@ -25,6 +29,7 @@
             transform: translateY(-50px);
             transition: transform 0.3s ease-out;
         }
+
         .modal.show .modal-dialog {
             transform: translateY(0);
         }
@@ -42,110 +47,116 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container mt-5">
-    <!-- Sidebar (simulated) -->
-    <div class="sidebar mb-4">
-        <a href="#" class="btn btn-secondary">Dashboard</a>
-        <a href="#" class="btn btn-secondary" id="assignTaskBtn">Assign Task</a>
-    </div>
+    <div class="container mt-5">
+        <!-- Sidebar (simulated) -->
+        <div class="sidebar mb-4">
+            <a href="#" class="btn btn-secondary">Dashboard</a>
+            <a href="#" class="btn btn-secondary" id="assignTaskBtn">Assign Task</a>
+        </div>
 
-    <!-- Assign Task Modal -->
-    <div class="modal fade" id="assignTaskModal" tabindex="-1" aria-labelledby="assignTaskLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="assignTaskLabel">Assign New Task</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <!-- Task Title -->
-                        <div class="mb-3">
-                            <label for="taskTitle" class="form-label">Task Title</label>
-                            <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title">
-                        </div>
-
-                        <!-- Task Description -->
-                        <div class="mb-3">
-                            <label for="taskDescription" class="form-label">Task Description</label>
-                            <textarea class="form-control" id="taskDescription" rows="3" placeholder="Short description of the task..."></textarea>
-                        </div>
-
-                        <!-- Select Users and Category -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="selectUsers" class="form-label">Select Users</label>
-                                <select class="form-select" id="selectUsers">
-                                    <option selected>Select users</option>
-                                    <option>User 1</option>
-                                    <option>User 2</option>
-                                    <option>User 3</option>
-                                </select>
+        <!-- Assign Task Modal -->
+        <div class="modal fade" id="assignTaskModal" tabindex="-1" aria-labelledby="assignTaskLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="assignTaskLabel">Assign New Task</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <!-- Task Title -->
+                            <div class="mb-3">
+                                <label for="taskTitle" class="form-label">Task Title</label>
+                                <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title">
                             </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="selectCategory" class="form-label">Select Category</label>
-                                <select class="form-select" id="selectCategory">
-                                    <option selected>Select category</option>
-                                    <option>Development</option>
-                                    <option>Design</option>
-                                    <option>Marketing</option>
-                                </select>
-                            </div>
-                        </div>
 
-                        <!-- Priority -->
-                        <div class="mb-3">
-                            <label class="form-label">Priority</label>
-                            <div class="priority-btns d-flex justify-content-between">
-                                <button type="button" class="btn btn-success">High</button>
-                                <button type="button" class="btn btn-warning">Medium</button>
-                                <button type="button" class="btn btn-danger">Low</button>
+                            <!-- Task Description -->
+                            <div class="mb-3">
+                                <label for="taskDescription" class="form-label">Task Description</label>
+                                <textarea class="form-control" id="taskDescription" rows="3"
+                                    placeholder="Short description of the task..."></textarea>
                             </div>
-                        </div>
 
-                        <!-- Due Date -->
-                        <div class="mb-3">
-                            <label for="dueDate" class="form-label">Due Date</label>
-                            <input type="text" class="form-control" id="dueDate" placeholder="Select due date">
-                        </div>
-
-                        <!-- File Upload, Link, and Voice Notes -->
-                        <div class="mb-3">
-                            <label class="form-label">Attachments</label>
-                            <div class="d-flex justify-content-start">
-                                <button type="button" class="btn btn-link"><i class="bi bi-link"></i> Add Link</button>
-                                <button type="button" class="btn btn-link"><i class="bi bi-file-earmark"></i> Upload File</button>
-                                <button type="button" class="btn btn-link"><i class="bi bi-mic"></i> Voice Note</button>
+                            <!-- Select Users and Category -->
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="selectUsers" class="form-label">Select Users</label>
+                                    <select class="form-select" id="selectUsers">
+                                        <option selected>Select users</option>
+                                        <option>User 1</option>
+                                        <option>User 2</option>
+                                        <option>User 3</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="selectCategory" class="form-label">Select Category</label>
+                                    <select class="form-select" id="selectCategory">
+                                        <option selected>Select category</option>
+                                        <option>Development</option>
+                                        <option>Design</option>
+                                        <option>Marketing</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Assign Task</button>
+
+                            <!-- Priority -->
+                            <div class="mb-3">
+                                <label class="form-label">Priority</label>
+                                <div class="priority-btns d-flex justify-content-between">
+                                    <button type="button" class="btn btn-success">High</button>
+                                    <button type="button" class="btn btn-warning">Medium</button>
+                                    <button type="button" class="btn btn-danger">Low</button>
+                                </div>
+                            </div>
+
+                            <!-- Due Date -->
+                            <div class="mb-3">
+                                <label for="dueDate" class="form-label">Due Date</label>
+                                <input type="text" class="form-control" id="dueDate" placeholder="Select due date">
+                            </div>
+
+                            <!-- File Upload, Link, and Voice Notes -->
+                            <div class="mb-3">
+                                <label class="form-label">Attachments</label>
+                                <div class="d-flex justify-content-start">
+                                    <button type="button" class="btn btn-link"><i class="bi bi-link"></i> Add
+                                        Link</button>
+                                    <button type="button" class="btn btn-link"><i class="bi bi-file-earmark"></i> Upload
+                                        File</button>
+                                    <button type="button" class="btn btn-link"><i class="bi bi-mic"></i> Voice
+                                        Note</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Assign Task</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    $(document).ready(function () {
-        // Trigger modal on "Assign Task" button click
-        $('#assignTaskBtn').click(function () {
-            $('#assignTaskModal').modal('show');
-        });
+    <script>
+        $(document).ready(function () {
+            // Trigger modal on "Assign Task" button click
+            $('#assignTaskBtn').click(function () {
+                $('#assignTaskModal').modal('show');
+            });
 
-        // Initialize the date picker for Due Date
-        $('#dueDate').datepicker({
-            format: 'mm/dd/yyyy',
-            autoclose: true,
-            todayHighlight: true
+            // Initialize the date picker for Due Date
+            $('#dueDate').datepicker({
+                format: 'mm/dd/yyyy',
+                autoclose: true,
+                todayHighlight: true
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
+
 </html>
