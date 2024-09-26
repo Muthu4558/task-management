@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Management</title>
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css"
+    rel="stylesheet">
+
+</head>
+
+<body class="light-mode">
+
+  <!-- Main Header with Profile Dropdown -->
+  <header class="py-3 bg-light shadow-sm fixed-top">
+
+    <div class="container d-flex justify-content-between align-items-center">
+
+      <img src="./assets/images/logo/nizcare-logo.png" alt="Logo" width="140">
+
+      <div class="d-flex align-items-center gap-3">
+
+        <img src="./assets/images/profile/muthu.jpg" class="rounded-pill" width="40px" alt="User">
+
+        <div class="dropdown">
+
+          <a href="#" id="profileDropdown" data-bs-toggle="dropdown">
+            <span class="text-muted">Muthu</span><br>
+            <small class="text-muted">Admin</small>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end shadow-lg">
+
+            <li class="dropdown-header text-end">
+              <h6 class="mb-0">Muthu V</h6>
+              <small>muthu.nizcare@mamce.org</small>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-person"></i>
+                  <span>My Profile</span>
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <div class="d-flex gap-2">
+                  <i class="bi bi-gear"></i>
+                  <span>Settings</span>
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <div class="d-flex gap-2">
+                  <span>&#8377;</span>
+                  <span>Billing</span>
+                </div>
+              </a>
+            </li>
+
+            <li class="dropdown-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <span id="modeText">Light Mode</span>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                </div>
+              </div>
+            </li>
+
+            <li>
+              <a class="dropdown-item" href="#">
+                <div class="d-flex justify-content-between">
+                  <span>Logout</span>
+                  <i class="bi bi-box-arrow-right"></i>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </header>
+
+
+  <section class="d-flex">
+
+    <!-- Sidebar Menu -->
+    <div>
+
+      <div class="sidebar" id="sidebar">
+
+        <a href="./index.html" class="active"><i class="bi bi-grid"></i><span>Dashboard</span></a>
+        <a href="#" data-bs-toggle="modal" data-bs-target="#assignTaskModal"><i
+            class="bi bi-check check-icon"></i><span>Assign Task</span></a>
+        <a href="#"><i class="bi bi-check2-circle"></i> <span>My Tasks</span></a>
+        <a href="#"><i class="bi bi-arrow-right-circle"></i> <span>Delegated Tasks</span></a>
+
+        <!-- Visible only after 768px -->
+        <a href="javascript:void(0)" class="more-menu-icon d-md-none" onclick="toggleMoreMenu()">
+          <i class="bi bi-three-dots"></i> <!-- More Icon -->
+        </a>
+
+        <!-- Additional items always visible on large screens, hidden in mobile -->
+        <a href="#" class="more-items d-none d-md-block"><i class="bi bi-list-task"></i> <span>All Tasks</span></a>
+        <a href="#" class="more-items d-none d-md-block"><i class="bi bi-clipboard"></i> <span>Task Templates</span></a>
+
+      </div>
+
+      <!-- Collapsible more items (hidden in mobile initially) -->
+      <div id="moreMenuDropdown" class="d-md-none fade-in">
+        <a href="#"><i class="bi bi-list-task"></i> <span>All Tasks</span></a>
+        <a href="#"><i class="bi bi-clipboard"></i> <span>Task Templates</span></a>
+      </div>
+
+    </div>
+
+    <!-- Assign Task Modal -->
+    <div class="modal fade" id="assignTaskModal" tabindex="-1" aria-labelledby="assignTaskModalLabel" aria-hidden="true">
+
+      <div class="modal-dialog modal-lg">
+
+        <div class="modal-content">
+
+          <div class="modal-header">
+            <h5 class="modal-title" id="assignTaskModalLabel" class="text-color">Assign New Task</h5>
+            <button type="button" class="btn-close btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <div class="modal-body">
+
+            <form id="taskForm">
+
+              <!-- Task Title -->
+              <div class="mb-3">
+                <label for="taskTitle" class="form-label" class="text-color">Task Title</label>
+                <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title">
+              </div>
+
+              <!-- Task Description -->
+              <div class="mb-3">
+                <label for="taskDescription" class="form-label" class="text-color">Short Description</label>
+                <textarea class="form-control" id="taskDescription" rows="3"
+                  placeholder="Short description of the task..."></textarea>
+              </div>
+
+              <!-- Select Users and Categories -->
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="selectUsers" class="form-label" class="text-color">Select Users</label>
+                  <select class="form-select" id="selectUsers">
+                    <option selected>Select users</option>
+                    <option>User 1</option>
+                    <option>User 2</option>
+                    <option>User 3</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="selectCategory" class="form-label" class="text-color">Select Category</label>
+                  <select class="form-select" id="selectCategory">
+                    <option selected>Select category</option>
+                    <option>Development</option>
+                    <option>Design</option>
+                    <option>Marketing</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <!-- Select Priority -->
+              <div class="mb-3">
+                <label class="form-label" class="text-color">Priority</label>
+                <div class="priority-btns d-flex justify-content-around gap-3">
+                  <a href="#" class="priority-btn" data-priority="High">High</a>
+                  <a href="#" class="priority-btn" data-priority="Medium">Medium</a>
+                  <a href="#" class="priority-btn" data-priority="Low">Low</a>
+                </div>
+              </div>
+
+              <!-- Due Date -->
+              <div class="mb-3">
+                <label for="dueDate" class="form-label" class="text-color">Due Date</label>
+                <input type="date" class="form-control" id="dueDate">
+              </div>
+
+              <!-- Attachments -->
+              <div class="mb-3">
+                <label class="form-label" class="text-color">Attachments</label>
+                <div class="d-flex gap-3">
+                  <button type="button" class="attachments-btn"><i class="bi bi-link"></i> Add Link</button>
+                  <button type="button" class="attachments-btn"><i class="bi bi-file-earmark"></i> Upload File</button>
+                  <button type="button" class="attachments-btn"><i class="bi bi-mic"></i> Voice Note</button>
+                </div>
+              </div>
+
+              <!-- Repeat Toggle -->
+              <div class="mb-3">
+                <label for="repeatTask" class="form-label" class="text-color">Repeat</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="repeatTask">
+                </div>
+              </div>
+
+            </form>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <!-- Assign Task Button as an <a> tag -->
+            <a href="#" class="btn-assign" onclick="saveTask()">Assign Task</a>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="main-content">
+
+      <div class="container">
+        
+        <!-- Filter buttons -->
+        <div class="d-flex justify-content-center flex-wrap my-4">
+          <button class="filter-btn" onclick="updateData('today')">Today</button>
+          <button class="filter-btn" onclick="updateData('yesterday')">Yesterday</button>
+          <button class="filter-btn" onclick="updateData('thisWeek')">This Week</button>
+          <button class="filter-btn" onclick="updateData('lastWeek')">Last Week</button>
+          <button class="filter-btn" onclick="updateData('thisMonth')">This Month</button>
+          <button class="filter-btn" onclick="updateData('lastMonth')">Last Month</button>
+          <button class="filter-btn" onclick="updateData('thisYear')">This Year</button>
+          <button class="filter-btn" onclick="updateData('allTime')">All Time</button>
+          <button class="filter-btn" id="customBtn">Custom</button>
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="./assets/js/script.js"></script>
+
+</body>
+
+</html>

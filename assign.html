@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Assign Task Modal</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Bootstrap Icons -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  
+  <!-- jQuery (optional for advanced interaction) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Custom Styles for the modal -->
+  <style>
+    /* Modal Animation */
+    .modal.fade .modal-dialog {
+      transform: translateY(-50px);
+      transition: transform 0.3s ease-out;
+    }
+    .modal.show .modal-dialog {
+      transform: translateY(0);
+    }
+
+    /* Modal Custom Style */
+    .modal-content {
+      background-color: #1f1f1f;
+      color: white;
+      border-radius: 10px;
+    }
+
+    .modal-header {
+      border-bottom: 1px solid #444;
+    }
+
+    .modal-footer {
+      border-top: 1px solid #444;
+    }
+
+    .btn-primary {
+      background-color: #00b894;
+      border: none;
+    }
+
+    .btn-secondary {
+      background-color: #636e72;
+      border: none;
+    }
+
+    /* Priority Buttons */
+    .priority-btns button {
+      width: 100%;
+    }
+
+    /* Attachments Buttons */
+    .attachments-btn {
+      background-color: transparent;
+      border: none;
+      color: #00b894;
+    }
+
+    .attachments-btn i {
+      font-size: 1.5rem;
+    }
+    
+    /* Assign Task Button */
+    .btn-assign {
+      background-color: #00b894;
+      border: none;
+      width: 100%;
+    }
+    
+    /* Toggle Switch Custom */
+    .form-switch .form-check-input {
+      background-color: #636e72;
+    }
+    
+    /* Responsiveness for Mobile */
+    @media (max-width: 768px) {
+      .modal-dialog {
+        max-width: 100%;
+      }
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Assign Task Button -->
+  <div class="container my-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#assignTaskModal">
+      Assign Task
+    </button>
+  </div>
+
+  <!-- Assign Task Modal -->
+  <div class="modal fade" id="assignTaskModal" tabindex="-1" aria-labelledby="assignTaskModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="assignTaskModalLabel">Assign New Task</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form id="taskForm">
+
+            <!-- Task Title -->
+            <div class="mb-3">
+              <label for="taskTitle" class="form-label">Task Title</label>
+              <input type="text" class="form-control" id="taskTitle" placeholder="Enter task title">
+            </div>
+
+            <!-- Task Description -->
+            <div class="mb-3">
+              <label for="taskDescription" class="form-label">Short Description</label>
+              <textarea class="form-control" id="taskDescription" rows="3" placeholder="Short description of the task..."></textarea>
+            </div>
+
+            <!-- Select Users and Categories -->
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="selectUsers" class="form-label">Select Users</label>
+                <select class="form-select" id="selectUsers">
+                  <option selected>Select users</option>
+                  <option>User 1</option>
+                  <option>User 2</option>
+                  <option>User 3</option>
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="selectCategory" class="form-label">Select Category</label>
+                <select class="form-select" id="selectCategory">
+                  <option selected>Select category</option>
+                  <option>Development</option>
+                  <option>Design</option>
+                  <option>Marketing</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Select Priority -->
+            <div class="mb-3">
+              <label class="form-label">Priority</label>
+              <div class="priority-btns d-flex justify-content-between">
+                <button type="button" class="btn btn-success priority-btn" data-priority="High">High</button>
+                <button type="button" class="btn btn-warning priority-btn" data-priority="Medium">Medium</button>
+                <button type="button" class="btn btn-danger priority-btn" data-priority="Low">Low</button>
+              </div>
+            </div>
+
+            <!-- Due Date -->
+            <div class="mb-3">
+              <label for="dueDate" class="form-label">Due Date</label>
+              <input type="date" class="form-control" id="dueDate">
+            </div>
+
+            <!-- Attachments -->
+            <div class="mb-3">
+              <label class="form-label">Attachments</label>
+              <div class="d-flex gap-3">
+                <button type="button" class="attachments-btn"><i class="bi bi-link"></i> Add Link</button>
+                <button type="button" class="attachments-btn"><i class="bi bi-file-earmark"></i> Upload File</button>
+                <button type="button" class="attachments-btn"><i class="bi bi-mic"></i> Voice Note</button>
+              </div>
+            </div>
+
+            <!-- Repeat Toggle -->
+            <div class="mb-3">
+              <label for="repeatTask" class="form-label">Repeat</label>
+              <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="repeatTask">
+              </div>
+            </div>
+
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-assign" onclick="saveTask()">Assign Task</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Script for handling local storage -->
+  <script>
+    let selectedPriority = 'High'; // Default priority
+
+    // Handle priority button selection
+    document.querySelectorAll('.priority-btn').forEach(button => {
+      button.addEventListener('click', function () {
+        selectedPriority = this.getAttribute('data-priority');
+        // Highlight the selected priority
+        document.querySelectorAll('.priority-btn').forEach(btn => btn.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+
+    function saveTask() {
+      // Get form values
+      const taskTitle = document.getElementById('taskTitle').value;
+      const taskDescription = document.getElementById('taskDescription').value;
+      const selectedUser = document.getElementById('selectUsers').value;
+      const selectedCategory = document.getElementById('selectCategory').value;
+      const dueDate = document.getElementById('dueDate').value;
+      const repeatTask = document.getElementById('repeatTask').checked;
+
+      // Create a task object
+      const task = {
+        taskTitle: taskTitle,
+        taskDescription: taskDescription,
+        selectedUser: selectedUser,
+        selectedCategory: selectedCategory,
+        priority: selectedPriority,
+        dueDate: dueDate,
+        repeatTask: repeatTask
+      };
+
+      // Get existing tasks from local storage or initialize an empty array
+      const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+
+      // Add the new task to the tasks array
+      tasks.push(task);
+
+      // Save the updated tasks array to local storage
+      localStorage.setItem('tasks', JSON.stringify(tasks));
+
+      // Log the task to console (for testing)
+      console.log('Task saved:', task);
+
+      // Close the modal after saving
+      const modal = document.getElementById('assignTaskModal');
+      const modalInstance = bootstrap.Modal.getInstance(modal);
+      modalInstance.hide();
+    }
+  </script>
+
+</body>
+</html>
